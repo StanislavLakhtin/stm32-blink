@@ -24,7 +24,7 @@
 /* Set STM32 to 72 MHz. */
 static void clock_setup(void)
 {
-	rcc_clock_setup_in_hse_12mhz_out_72mhz();
+	rcc_clock_setup_in_hse_8mhz_out_72mhz();
 
 	/* Enable GPIOB, GPIOC, and AFIO clocks. */
 	rcc_periph_clock_enable(RCC_GPIOB);
@@ -58,10 +58,15 @@ int main(void)
 
 	/* Blink the LEDs (PC13 and PB4) on the board. */
 	while (1) {
-		gpio_toggle(GPIOC, GPIO13);	/* LED on/off */
-		gpio_toggle(GPIOB, GPIO4);	/* LED on/off */
-		for (i = 0; i < 800000; i++)	/* Wait a bit. */
-			__asm__("nop");
+        int k = 10;
+        while (k>0) {
+            gpio_toggle(GPIOC, GPIO13);    /* LED on/off */
+            gpio_toggle(GPIOB, GPIO4);    /* LED on/off */
+            uint32_t p = 400000*k;
+            for (i = 0; i < p; i++)    /* Wait a bit. */
+               __asm__("nop");
+            k--;
+        }
 	}
 
 	return 0;

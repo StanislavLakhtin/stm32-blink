@@ -3,6 +3,8 @@ include(CMakeForceCompiler)
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR cortex-m3)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build)
+
 # Find the cross compiler
 find_program(ARM_CC arm-none-eabi-gcc
             ${TOOLCHAIN_DIR}/bin)
